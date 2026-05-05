@@ -3,139 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Repo Explorer & Preview</title>
+    <title>GitHub File Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .preview-container iframe {
-            width: 100%;
-            height: 500px;
-            border: 1px solid #ddd;
-            background: white;
-        }
-        .media-preview img, .media-preview video {
-            max-width: 100%;
-            max-height: 500px;
-            border-radius: 8px;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 10px; }
+        .preview-box iframe { width: 100%; height: 600px; background: white; border-radius: 4px; }
+        .media-content img, .media-content video { max-width: 100%; max-height: 70vh; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen p-4 md:p-8">
+<body class="bg-[#0d1117] text-gray-200 font-sans min-h-screen">
 
-    <div class="max-w-5xl mx-auto">
-        <h1 class="text-3xl font-bold mb-6 border-b border-gray-700 pb-2">GitHub Repository Previewer</h1>
+    <header class="border-b border-gray-800 bg-[#161b22] p-4 mb-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 p-2 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.416-4.041-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight">RepoExplorer <span class="text-blue-500" id="userTitle">@User</span></h1>
+            </div>
+            
+            <div class="flex w-full md:w-auto gap-2">
+                <input type="text" id="repoInput" placeholder="Repository Name..." class="bg-[#0d1117] border border-gray-700 rounded-md px-4 py-2 w-full md:w-64 focus:ring-2 focus:ring-blue-500 outline-none">
+                <button onclick="initExplorer()" class="bg-[#238636] hover:bg-[#2ea043] text-white font-semibold px-6 py-2 rounded-md transition">Öffnen</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Input Section -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <input type="text" id="repoOwner" placeholder="Besitzer (z.B. google)" class="bg-gray-800 p-2 rounded border border-gray-600 focus:outline-none focus:border-blue-500">
-            <input type="text" id="repoName" placeholder="Repository (z.B. material-design-lite)" class="bg-gray-800 p-2 rounded border border-gray-600 focus:outline-none focus:border-blue-500">
-            <button onclick="loadContents('')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded transition">Laden</button>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- File Explorer -->
-            <div class="bg-gray-800 p-4 rounded-lg shadow-xl">
-                <h2 class="text-xl font-semibold mb-4 flex justify-between items-center">
-                    Dateien
-                    <span id="currentPath" class="text-sm text-gray-400 font-mono">/</span>
-                </h2>
-                <ul id="fileList" class="space-y-2 max-h-[600px] overflow-y-auto">
-                    <!-- Dynamic Content -->
-                </ul>
+        <!-- Sidebar: File Browser -->
+        <div class="lg:col-span-4 bg-[#161b22] border border-gray-800 rounded-xl overflow-hidden flex flex-col h-[700px]">
+            <div class="p-4 border-b border-gray-800 bg-[#1c2128]">
+                <p class="text-xs uppercase font-bold text-gray-500 mb-1">Dateisystem</p>
+                <p id="pathDisplay" class="text-sm font-mono text-blue-400 truncate">/</p>
             </div>
-
-            <!-- Preview Panel -->
-            <div id="previewPanel" class="bg-gray-800 p-4 rounded-lg shadow-xl hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-semibold">Vorschau</h2>
-                    <a id="downloadBtn" href="#" target="_blank" class="text-sm bg-green-600 hover:bg-green-500 px-3 py-1 rounded">Download</a>
-                </div>
-                <div id="previewContent" class="preview-container flex justify-center items-center">
-                    <!-- Preview content goes here -->
-                </div>
+            <div id="fileContainer" class="flex-1 overflow-y-auto p-2">
+                <p class="text-gray-500 text-center mt-10">Gib ein Repository ein, um zu starten.</p>
             </div>
         </div>
-    </div>
+
+        <!-- Main Content: Preview -->
+        <div class="lg:col-span-8 space-y-4">
+            <div id="previewArea" class="bg-[#161b22] border border-gray-800 rounded-xl min-h-[700px] flex flex-col hidden">
+                <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-[#1c2128]">
+                    <h3 id="fileName" class="font-medium truncate mr-4 italic text-gray-400">Keine Datei ausgewählt</h3>
+                    <a id="rawDownload" href="#" target="_blank" class="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-4 py-1.5 rounded text-sm transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download
+                    </a>
+                </div>
+                <div id="viewer" class="flex-1 flex items-center justify-center p-4 overflow-auto">
+                    <!-- Preview will be injected here -->
+                </div>
+            </div>
+
+            <!-- Placeholder -->
+            <div id="previewPlaceholder" class="bg-[#161b22] border border-gray-800 rounded-xl h-[700px] flex flex-col items-center justify-center text-gray-600 border-dashed">
+                <svg class="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                <p>Wähle eine Datei aus der Liste aus</p>
+            </div>
+        </div>
+    </main>
 
     <script>
-        async function loadContents(path = '') {
-            const owner = document.getElementById('repoOwner').value;
-            const repo = document.getElementById('repoName').value;
-            if (!owner || !repo) return alert("Bitte Besitzer und Repo angeben!");
+        // --- KONFIGURATION ---
+        const GITHUB_USER = "DEIN_GITHUB_USERNAME"; // Ändere dies zu dem gewünschten User
+        // ---------------------
 
-            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-            document.getElementById('currentPath').innerText = path || '/';
+        document.getElementById('userTitle').innerText = `@${GITHUB_USER}`;
+
+        function initExplorer() {
+            const repo = document.getElementById('repoInput').value;
+            if(!repo) return;
+            loadPath('');
+        }
+
+        async function loadPath(path) {
+            const repo = document.getElementById('repoInput').value;
+            const container = document.getElementById('fileContainer');
+            const pathDisplay = document.getElementById('pathDisplay');
+            
+            pathDisplay.innerText = `${repo}/${path}`;
+            container.innerHTML = '<div class="p-4 text-gray-500 italic">Lade Daten...</div>';
 
             try {
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                if (response.status !== 200) throw new Error(data.message);
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${repo}/contents/${path}`);
+                const items = await res.json();
 
-                const fileList = document.getElementById('fileList');
-                fileList.innerHTML = '';
+                if (!Array.isArray(items)) throw new Error("Repository nicht gefunden oder leer.");
 
-                // Zurück-Button wenn im Unterordner
-                if (path) {
-                    const parentPath = path.split('/').slice(0, -1).join('/');
-                    addListItem('.. (Zurück)', () => loadContents(parentPath), '📁');
+                container.innerHTML = '';
+
+                // Zurück-Navigation
+                if (path !== '') {
+                    const parent = path.split('/').slice(0, -1).join('/');
+                    createItem("..", () => loadPath(parent), "folder-back");
                 }
 
-                data.forEach(item => {
-                    const icon = item.type === 'dir' ? '📁' : '📄';
-                    addListItem(item.name, () => {
-                        if (item.type === 'dir') {
-                            loadContents(item.path);
-                        } else {
-                            showPreview(item);
-                        }
-                    }, icon);
+                items.forEach(item => {
+                    const type = item.type === 'dir' ? 'folder' : 'file';
+                    createItem(item.name, () => {
+                        if(item.type === 'dir') loadPath(item.path);
+                        else openFile(item);
+                    }, type);
                 });
+
             } catch (err) {
-                alert("Fehler: " + err.message);
+                container.innerHTML = `<div class="p-4 text-red-400 text-sm">${err.message}</div>`;
             }
         }
 
-        function addListItem(name, onClick, icon) {
-            const li = document.createElement('li');
-            li.className = "p-2 hover:bg-gray-700 rounded cursor-pointer flex items-center transition";
-            li.innerHTML = `<span class="mr-3">${icon}</span> <span class="truncate">${name}</span>`;
-            li.onclick = onClick;
-            document.getElementById('fileList').appendChild(li);
+        function createItem(name, onClick, type) {
+            const btn = document.createElement('div');
+            btn.className = "flex items-center gap-3 p-2.5 hover:bg-[#1f242c] rounded-md cursor-pointer transition text-sm mb-1 group";
+            
+            let icon = '';
+            if(type === 'folder') icon = '<svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>';
+            else if(type === 'folder-back') icon = '<svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke="white" stroke-width="2"></path></svg>';
+            else icon = '<svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>';
+
+            btn.innerHTML = `${icon} <span class="truncate">${name}</span>`;
+            btn.onclick = onClick;
+            document.getElementById('fileContainer').appendChild(btn);
         }
 
-        async function showPreview(file) {
-            const panel = document.getElementById('previewPanel');
-            const container = document.getElementById('previewContent');
-            const downloadBtn = document.getElementById('downloadBtn');
-            
-            panel.classList.remove('hidden');
-            container.innerHTML = '<p class="text-gray-400">Lade Vorschau...</p>';
-            downloadBtn.href = file.download_url;
+        async function openFile(file) {
+            document.getElementById('previewPlaceholder').classList.add('hidden');
+            const area = document.getElementById('previewArea');
+            const viewer = document.getElementById('viewer');
+            const nameLabel = document.getElementById('fileName');
+            const dl = document.getElementById('rawDownload');
+
+            area.classList.remove('hidden');
+            nameLabel.innerText = file.name;
+            dl.href = file.download_url;
+            viewer.innerHTML = '<span class="animate-pulse">Vorbereiten...</span>';
 
             const ext = file.name.split('.').pop().toLowerCase();
 
             if (ext === 'html') {
-                // HTML Preview via iFrame
                 const response = await fetch(file.download_url);
-                const html = await response.text();
-                const iframe = document.createElement('iframe');
-                container.innerHTML = '';
-                container.appendChild(iframe);
-                iframe.contentWindow.document.open();
-                iframe.contentWindow.document.write(html);
-                iframe.contentWindow.document.close();
-            } 
-            else if (['png', 'jpg', 'jpeg', 'gif', 'svg'].includes(ext)) {
-                container.innerHTML = `<div class="media-preview"><img src="${file.download_url}" alt="${file.name}"></div>`;
-            } 
+                const code = await response.text();
+                const frame = document.createElement('iframe');
+                viewer.innerHTML = '';
+                viewer.appendChild(frame);
+                frame.contentWindow.document.open();
+                frame.contentWindow.document.write(code);
+                frame.contentWindow.document.close();
+            }
+            else if (['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext)) {
+                viewer.innerHTML = `<div class="media-content"><img src="${file.download_url}"></div>`;
+            }
             else if (ext === 'mp4') {
-                container.innerHTML = `<div class="media-preview"><video controls src="${file.download_url}"></video></div>`;
-            } 
+                viewer.innerHTML = `<div class="media-content"><video controls autoplay muted src="${file.download_url}"></video></div>`;
+            }
             else {
-                container.innerHTML = `<div class="text-center p-8 bg-gray-900 rounded border border-dashed border-gray-600">
-                    <p class="mb-2">Keine Live-Vorschau für .${ext} verfügbar.</p>
-                    <code class="text-xs text-blue-400">${file.name}</code>
-                </div>`;
+                viewer.innerHTML = `<div class="text-center"><p class="text-gray-500 italic">Vorschau für .${ext} nicht verfügbar.</p><p class="text-xs text-gray-700 mt-2">${file.path}</p></div>`;
             }
         }
     </script>
