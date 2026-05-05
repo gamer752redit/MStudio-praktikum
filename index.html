@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-WEAR | Premium Spotify Hoodie Collection</title>
+    <!-- Modern Font: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #090909;
+            --bg-panel: #121212;
+            --bg-elevated: #1e1e1e;
+            --spotify-green: #1DB954;
+            --spotify-green-hover: #1ed760;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+            --lavender: #D6C3E1;
+            --mint: #CEE1C3;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(9, 9, 9, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #fff, #b3b3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo span {
+            color: var(--spotify-green);
+            -webkit-text-fill-color: var(--spotify-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .icon-btn:hover {
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            background: var(--spotify-green);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .container {
+            max-width: 1300px;
+            margin: 120px auto 50px;
+            padding: 0 5%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(135deg, rgba(29, 185, 84, 0.15) 0%, rgba(18, 18, 18, 0) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 80px 60px;
+            margin-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(29, 185, 84, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-label {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--spotify-green);
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- INTERACTIVE CONFIGURATOR --- */
+        .configurator {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .configurator h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .configurator p {
+            color: var(--text-secondary);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .input-row input {
+            flex: 1;
+            background: var(--bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .input-row input:focus {
+            border-color: var(--spotify-green);
+            box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.2);
+        }
+
+        .btn-primary {
+            background: var(--spotify-green);
+            color: #000;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--spotify-green-hover);
+            transform: scale(1.05);
+        }
+
+        .btn-primary.loading {
+            background: #fff;
+            pointer-events: none;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* --- PRODUCT GRID --- */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--bg-panel);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-image-wrap {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+            background: var(--bg-elevated);
+        }
+
+        .card-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-image-wrap img {
+            transform: scale(1.05);
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .wishlist-btn:hover,
+        .wishlist-btn.active {
+            color: var(--spotify-green);
+            transform: scale(1.1);
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .card-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .card-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--spotify-green);
+        }
+
+        /* Hover Actions */
+        .card-actions {
+            height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card:hover .card-actions {
+            height: 110px;
+            opacity: 1;
+            margin-top: 10px;
+        }
+
+        .size-selector {
+            display: flex;
+            gap: 8px;
+        }
+
+        .size-btn {
+            flex: 1;
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .size-btn:hover,
+        .size-btn.selected {
+            background: #fff;
+            color: #000;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            background: var(--spotify-green);
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--spotify-green-hover);
+            transform: scale(1.02);
+        }
+
+        /* --- SIDE PANELS (CART & WISHLIST) --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 400px;
+            height: 100vh;
+            background: var(--bg-panel);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .overlay.active {
+            right: 0;
+        }
+
+        .overlay-header {
+            padding: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .overlay-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: var(--bg-elevated);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            background: #333;
+            transform: rotate(90deg);
+        }
+
+        .overlay-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 50px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            background: var(--bg-elevated);
+            padding: 15px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .remove-btn {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .overlay-footer {
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--text-primary);
+            color: #000;
+            border: none;
+            padding: 18px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkout-btn:hover {
+            background: var(--spotify-green);
+        }
+
+        /* Overlay Backdrop */
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1500;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .backdrop.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--spotify-green);
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            z-index: 3000;
+            transition: var(--transition);
+            opacity: 0;
+            box-shadow: 0 10px 30px rgba(29, 185, 84, 0.4);
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .overlay {
+                width: 100%;
+                right: -100%;
+            }
+
+            .input-row {
+                flex-direction: column;
+            }
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--bg-panel);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 5% 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--spotify-green);
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-socials span {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-elevated);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .footer-socials span:hover {
+            background: var(--spotify-green);
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">S-WEAR<span>.</span></div>
+        <div class="nav-links">
+            <a href="#">Kollektion</a>
+            <a href="#">Personalisieren</a>
+            <a href="#">Über Uns</a>
+        </div>
+        <div class="nav-icons">
+            <button class="icon-btn" onclick="togglePanel('wishlist')">
+                ♥ Wishlist <span class="badge" id="wishlist-badge">0</span>
+            </button>
+            <button class="icon-btn" onclick="togglePanel('cart')">
+                🛒 Warenkorb <span class="badge" id="cart-badge">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="hero">
+            <div class="hero-label">Offizielle Kollektion</div>
+            <h1>Trage deinen<br>Lieblingssound.</h1>
+            <p>Die exklusive S-WEAR Hoodie Collection. Minimalistisches Design trifft auf deine persönliche Playlist.
+                Hochwertige Materialien, entwickelt für den perfekten Vibe.</p>
+        </header>
+
+        <section class="configurator">
+            <div>
+                <h3>🎵 Personalisiere deinen Hoodie</h3>
+                <p>Gib den Link zu deinem Spotify-Song, Album oder deiner Playlist ein. Wir generieren einen
+                    einzigartigen Code für deinen Sleeve.</p>
+            </div>
+            <div class="input-row">
+                <input type="text" id="spotify-link" placeholder="https://open.spotify.com/track/...">
+                <button class="btn-primary" id="link-btn" onclick="simulateLinking()">Design Generieren</button>
+            </div>
+        </section>
+
+        <h2 class="section-title">Die Kollektion</h2>
+        <div class="grid" id="product-grid">
+            <!-- Products injected via JS -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="logo">S-WEAR<span>.</span></div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 15px; line-height: 1.5;">
+                    Trage deinen Lieblingssound. Die exklusive Hoodie-Kollektion für echte Musikliebhaber.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#">Kollektion</a></li>
+                    <li><a href="#">Personalisieren</a></li>
+                    <li><a href="#">Größentabelle</a></li>
+                    <li><a href="#">Geschenkgutscheine</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hilfe & Kontakt</h4>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Versand & Rückgabe</a></li>
+                    <li><a href="#">Bestellstatus</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Rechtliches</h4>
+                <ul>
+                    <li><a href="#">Impressum</a></li>
+                    <li><a href="#">Datenschutz</a></li>
+                    <li><a href="#">AGB</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 S-WEAR. Alle Rechte vorbehalten.</p>
+            <div class="footer-socials">
+                <span>In</span>
+                <span>Tw</span>
+                <span>Fb</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Backdrop for panels -->
+    <div class="backdrop" id="backdrop" onclick="closePanels()"></div>
+
+    <!-- Cart Panel -->
+    <div class="overlay" id="cart-panel">
+        <div class="overlay-header">
+            <h2>Warenkorb</h2>
+            <button class="close-btn" onclick="closePanels()">✕</button>
+        </div>
+        <div class="overlay-content" id="cart-content">
+            <!-- Cart items injected via JS -->
+        </div>
+        <div class="overlay-footer">
+            <div class="total-row">
+                <span>Total</span>
+                <span id="cart-total">0,00 €</span>
+            </div>
+            <button class="checkout-btn">Zur Kasse</button>
+        </div>
+    </div>
+
+    <!-- Wishlist Panel -->
+    <div class="overlay" id="wishlist-panel">
+        <div class="overlay-header">
+            <h2>Wishlist</h2>
+            <button class="close-btn" onclick="closePanels()">✕</button>
+        </div>
+        <div class="overlay-content" id="wishlist-content">
+            <!-- Wishlist items injected via JS -->
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast">Element hinzugefügt!</div>
+
+    <script>
+        // --- DATA ---
+        const products = [
+            {
+                id: 'p1',
+                name: 'Soft Echo',
+                desc: 'Feel how Spotify Premium feels',
+                price: 65.00,
+                img: './pulli1.png'
+            },
+            {
+                id: 'p2',
+                name: 'Fresh Hue',
+                desc: 'Feel how Spotify Premium feels',
+                price: 65.00,
+                img: './pulli2.png'
+            },
+        ];
+
+        // --- STATE ---
+        let cart = [];
+        let wishlist = [];
+        let selectedSizes = { p1: 'L', p2: 'L', p3: 'L' };
+
+        // --- INITIALIZATION ---
+        function init() {
+            renderProducts();
+            updateUI();
+        }
+
+        // --- RENDERING ---
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="card">
+                    <button class="wishlist-btn ${wishlist.some(w => w.id === p.id) ? 'active' : ''}" 
+                            onclick="toggleWishlist('${p.id}')">♥</button>
+                    <div class="card-image-wrap">
+                        <img src="${p.img}" alt="${p.name}">
+                    </div>
+                    <div class="card-info">
+                        <div>
+                            <h3>${p.name}</h3>
+                            <p>${p.desc}</p>
+                        </div>
+                        <div class="price">${p.price.toFixed(2)} €</div>
+                    </div>
+                    <div class="card-actions">
+                        <div class="size-selector">
+                            ${['S', 'M', 'L', 'XL'].map(size => `
+                                <button class="size-btn ${selectedSizes[p.id] === size ? 'selected' : ''}" 
+                                        onclick="selectSize('${p.id}', '${size}', this)">${size}</button>
+                            `).join('')}
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addToCart('${p.id}')">In den Warenkorb</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCart() {
+            const content = document.getElementById('cart-content');
+            if (cart.length === 0) {
+                content.innerHTML = '<div class="empty-state">Dein Warenkorb ist leer.</div>';
+                return;
+            }
+
+            content.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>Größe: ${item.size}</p>
+                        <div style="font-weight: 700; color: var(--spotify-green);">${item.price.toFixed(2)} €</div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${index})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function renderWishlist() {
+            const content = document.getElementById('wishlist-content');
+            if (wishlist.length === 0) {
+                content.innerHTML = '<div class="empty-state">Deine Wishlist ist leer.</div>';
+                return;
+            }
+
+            content.innerHTML = wishlist.map(item => `
+                <div class="cart-item">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>${item.desc}</p>
+                        <div style="font-weight: 700; color: var(--spotify-green);">${item.price.toFixed(2)} €</div>
+                    </div>
+                    <button class="remove-btn" onclick="toggleWishlist('${item.id}')">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // --- ACTIONS ---
+        function selectSize(productId, size, btnElem) {
+            selectedSizes[productId] = size;
+            // Update UI for buttons in this card
+            const buttons = btnElem.parentElement.querySelectorAll('.size-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            btnElem.classList.add('selected');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const size = selectedSizes[productId];
+            cart.push({ ...product, size });
+
+            showToast(`${product.name} (Gr. ${size}) hinzugefügt`);
+            updateUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateUI();
+        }
+
+        function toggleWishlist(productId) {
+            const product = products.find(p => p.id === productId);
+            const index = wishlist.findIndex(w => w.id === productId);
+
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                showToast(`${product.name} von Wishlist entfernt`);
+            } else {
+                wishlist.push(product);
+                showToast(`${product.name} zur Wishlist hinzugefügt`);
+            }
+
+            renderProducts(); // Update heart icons
+            updateUI();
+        }
+
+        function updateUI() {
+            // Update Badges
+            document.getElementById('cart-badge').innerText = cart.length;
+            document.getElementById('wishlist-badge').innerText = wishlist.length;
+
+            // Update Total
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-total').innerText = total.toFixed(2) + ' €';
+
+            renderCart();
+            renderWishlist();
+        }
+
+        // --- UI UTILS ---
+        function togglePanel(id) {
+            closePanels();
+            document.getElementById(`${id}-panel`).classList.add('active');
+            document.getElementById('backdrop').classList.add('active');
+        }
+
+        function closePanels() {
+            document.getElementById('cart-panel').classList.remove('active');
+            document.getElementById('wishlist-panel').classList.remove('active');
+            document.getElementById('backdrop').classList.remove('active');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function simulateLinking() {
+            const btn = document.getElementById('link-btn');
+            const input = document.getElementById('spotify-link');
+
+            if (!input.value) {
+                input.focus();
+                return;
+            }
+
+            btn.classList.add('loading');
+            btn.innerText = "Analysiere Song...";
+
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.innerText = "✓ Erfolgreich Verlinkt";
+                btn.style.background = "#fff";
+
+                setTimeout(() => {
+                    btn.innerText = "Design Generieren";
+                    btn.style.background = "var(--spotify-green)";
+                    input.value = "";
+                }, 3000);
+            }, 2000);
+        }
+
+        // Run
+        init();
+    </script>
+</body>
+
+</html>
